@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class FruitHtmlController {
     @GetMapping("/fruit01") // http://localhost:9000/fruit01
@@ -20,5 +23,19 @@ public class FruitHtmlController {
 
         // html 문서에서 이를 접근할 수 있음
         return "fruit"; // fruit.html 문서로 이동 (보낼 html파일 이름 적기 - 대소문자 구별함)
+    }
+
+    @GetMapping("/fruit01/list") // http://localhost:9000/fruit01/list
+    public String test02(Model model){
+        // 상품 여러개를 저장하기 위한 List 컬렉션
+        List<Fruit> fruitList = new ArrayList<>();
+
+        fruitList.add(new Fruit("apple", "사과", 1000));
+        fruitList.add(new Fruit("pear", "배", 2000));
+        fruitList.add(new Fruit("grape", "포도", 3000));
+
+        model.addAttribute("fruitList", fruitList);
+
+        return "fruitList";
     }
 }
