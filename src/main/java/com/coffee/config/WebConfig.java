@@ -21,8 +21,11 @@ public class WebConfig implements WebMvcConfigurer {
                 // 쿠키 전송 허용
                 .allowCredentials(true) ;
     }
-    // 값을 가져오는 어노테이션 / 가져오는 경로는 기본적으로 설정파일 (application.properties)
+
+    // 이미지 가져오는 법
+    // @Value는 값을 자바 변수로 가져오는 어노테이션 / 가져오는 경로는 기본적으로 설정파일 (application.properties)
     // 설정 파일에서 uploadPath라는 key가 가진 값을 가져와서 아래의 변수에 값으로 넣어라
+    // ${ }의 의미 : 스프링(Spring) 프레임워크 전반에서는 "어딘가에 저장된 값을 꺼내올 때 쓰는 공통 약속"
     @Value("${uploadPath}")
     private String uploadPath ; // file:///C:/shop/images/
 
@@ -32,9 +35,14 @@ public class WebConfig implements WebMvcConfigurer {
     @Override // addResourceHandlers : 리소스를 어디서 어떻게 가져올지 규칙을 정하는 메서드 이름
     public void addResourceHandlers(ResourceHandlerRegistry registry) { // 등록 대장 객체
         registry // 웹 브라우저의 가상 주소
+                // 리액트에서 JSX영역에 해당 소스로 이미지를 요청하면 그 요청을 수락하고
+                // 요청 받은 그 이미지를 .addResourceLocations(uploadPath);로 인해
+                // uploadPath(application.properties파일에 있는 변수)라는 변수를 통해 운영체제에 해당 위치에 있는
+                // 이미지 파일을 가져옴
                 .addResourceHandler("/images/**") //**은 이 주소안의 모든 것을 의미
 
                 // 컴퓨터의 실제 폴더 위치
+                // @Value 어노테이션에 의해 uploadPath라는 변수를 사용할 수 있음
                 .addResourceLocations(uploadPath);
 
         /* 프로그램 진행 순서 (중요!!!)
