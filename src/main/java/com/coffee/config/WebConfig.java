@@ -40,6 +40,8 @@ public class WebConfig implements WebMvcConfigurer {
                 // uploadPath(application.properties파일에 있는 변수)라는 변수를 통해 운영체제에 해당 위치에 있는
                 // 이미지 파일을 가져옴
                 .addResourceHandler("/images/**") //**은 이 주소안의 모든 것을 의미
+                // *은 현재 위치 바로 아래 모든것 (/images/apple.png 가능) (/images/fruit/apple.png 불가능)
+                // **은 하위 폴더를 포함한 모든 것 (/images/apple.png 가능) (/images/fruit/apple.png 가능)
 
                 // 컴퓨터의 실제 폴더 위치
                 // @Value 어노테이션에 의해 uploadPath라는 변수를 사용할 수 있음
